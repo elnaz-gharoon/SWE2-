@@ -54,4 +54,21 @@ public class AccountService implements IAccountService {
             accountRepository.deleteById(id);
         });
     }
+
+    public CompletableFuture<Void> updatePasswordAsync(UUID id, String newPassword) {
+        return CompletableFuture.runAsync(() -> {
+            Account account = accountRepository.findById(id)
+                    .orElseThrow(() -> new AccountNotFoundException("Account mit ID " + id + " nicht gefunden"));
+            account.setPassword(newPassword);
+            accountRepository.save(account);
+        });
+    }
+
+    public CompletableFuture<String> getPasswordAsync(UUID id) {
+        return CompletableFuture.supplyAsync(() -> {
+            Account account = accountRepository.findById(id)
+                    .orElseThrow(() -> new AccountNotFoundException("Account mit ID " + id + " nicht gefunden"));
+            return account.getPassword();
+        });
+    }
 }

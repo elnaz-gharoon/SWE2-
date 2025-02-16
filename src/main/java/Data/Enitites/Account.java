@@ -13,7 +13,7 @@ public class Account {
     private String password;
 
     /**
-     * Konstruktor für Account.
+     * Konstruktur für Account.
      * @param id Die ID des Accounts.
      * @param name Der Name des Accounts.
      * @param login Der Login des Accounts.
