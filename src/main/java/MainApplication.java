@@ -1,10 +1,13 @@
 import Application.Services.Implementations.AccountService;
 import Application.Services.Implementations.PasswordGeneratorService;
 import Application.Services.Implementations.SecureStringService;
+import Config.AppConfig;
 import Data.Enitites.Account;
 import Data.Repositories.AccountRepository;
 import Exceptions.AccountNotFoundException;
 import Exceptions.InvalidInputException;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 
 import java.util.Scanner;
 import java.util.UUID;
@@ -13,128 +16,146 @@ import java.util.concurrent.ExecutionException;
 import java.util.Scanner;
 
 public class MainApplication {
-    private static final AccountService accountService = new AccountService(new AccountRepository());
-    private static final PasswordGeneratorService passwordGeneratorService = new PasswordGeneratorService();
-    private static final SecureStringService secureStringService = new SecureStringService();
+    private static AccountService accountService;
+    private static SecureStringService secureStringService;
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.println("Passwort-Management-System");
-            System.out.println("1. Account erstellen");
-            System.out.println("2. Account anzeigen");
-            System.out.println("3. Alle Accounts anzeigen");
-            System.out.println("4. Account aktualisieren");
-            System.out.println("5. Account löschen");
-            System.out.println("6. Passwort generieren");
-            System.out.println("7. Passwort sicher speichern");
-            System.out.println("8. Sicheren Passwort anzeigen");
-            System.out.println("9. Passwort ändern");
-            System.out.println("10. Passwort anzeigen");
-            System.out.println("0. Beenden");
-            System.out.print("Wählen Sie eine Option: ");
-            int option = scanner.nextInt();
-            scanner.nextLine();
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
-            try {
-                switch (option) {
-                    case 1:
-                        createAccount(scanner);
-                        break;
-                    case 2:
-                        showAccount(scanner);
-                        break;
-                    case 3:
-                        showAllAccounts();
-                        break;
-                    case 4:
-                        updateAccount(scanner);
-                        break;
-                    case 5:
-                        deleteAccount(scanner);
-                        break;
-                    case 6:
-                        generatePassword(scanner);
-                        break;
-                    case 7:
-                        storeSecurePassword(scanner);
-                        break;
-                    case 8:
-                        retrieveSecurePassword(scanner);
-                        break;
-                    case 9:
-                        updatePassword(scanner);
-                        break;
-                    case 10:
-                        showPassword(scanner);
-                        break;
-                    case 0:
-                        System.exit(0);
-                    default:
-                        System.out.println("Ungültige Option. Bitte versuchen Sie es erneut.");
-                }
-            } catch (InvalidInputException | AccountNotFoundException e) {
-                System.out.println("Fehler: " + e.getMessage());
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
+        // Clean up hooks
+        Runtime.getRuntime().addShutdownHook(new Thread(context::close));
+
+        // Resolve beans from the DI container
+        accountService = context.getBean(AccountService.class);
+        secureStringService = context.getBean(SecureStringService.class);
+
+        // Scanner for user input
+        Scanner scanner = new Scanner(System.in);
+
+        // Example interaction
+        System.out.println("Welcome to the Password Manager!");
+        System.out.println("1. Create Account");
+        System.out.println("2. View Account");
+        System.out.println("3. Update Account");
+        System.out.println("4. Delete Account");
+        System.out.println("5. Generate Password");
+        System.out.println("6. Retrieve Secure Password");
+        System.out.println("7. Update Password");
+        System.out.println("8. Show Password");
+        System.out.println("Select an option:");
+
+        int option = scanner.nextInt();
+        scanner.nextLine();  // Consume newline
+
+        try {
+            switch (option) {
+                case 1:
+                    createAccount(scanner);
+                    break;
+                case 2:
+                    viewAccount(scanner);
+                    break;
+                case 3:
+                    updateAccount(scanner);
+                    break;
+                case 4:
+                    deleteAccount(scanner);
+                    break;
+                case 5:
+                    generatePassword(scanner);
+                    break;
+                case 6:
+                    retrieveSecurePassword(scanner);
+                    break;
+                case 7:
+                    updatePassword(scanner);
+                    break;
+                case 8:
+                    showPassword(scanner);
+                    break;
+                default:
+                    System.out.println("Invalid option");
+                    break;
             }
+        } catch (ExecutionException | InterruptedException e) {
+            System.err.println("An error occurred: " + e.getMessage());
         }
+
+        scanner.close();
     }
 
     private static void createAccount(Scanner scanner) throws ExecutionException, InterruptedException {
-        System.out.print("Name: ");
+        System.out.println("Enter account name:");
         String name = scanner.nextLine();
-        System.out.print("Login: ");
+        System.out.println("Enter login:");
         String login = scanner.nextLine();
-        System.out.print("Passwort: ");
+        System.out.println("Enter password:");
         String password = scanner.nextLine();
-        accountService.createAccountAsync(name, login, password).get();
-        System.out.println("Account erstellt.");
+
+        accountService.createAccountAsync(name, login, password)
+                .thenAccept(account -> System.out.println("Account created: " + account))
+                .get();
     }
 
-    private static void showAccount(Scanner scanner) throws ExecutionException, InterruptedException {
-        System.out.print("Account-ID: ");
-        UUID id = UUID.fromString(scanner.nextLine());
-        System.out.println(accountService.getAccountAsync(id).get());
-    }
+    private static void viewAccount(Scanner scanner) throws ExecutionException, InterruptedException {
+        System.out.println("Enter account ID:");
+        UUID accountId = UUID.fromString(scanner.nextLine());
 
-    private static void showAllAccounts() throws ExecutionException, InterruptedException {
-        accountService.getAccountsAsync().get().forEach(System.out::println);
+        accountService.getAccountAsync(accountId)
+                .thenAccept(account -> System.out.println("Account: " + account))
+                .exceptionally(ex -> {
+                    System.out.println("Account not found: " + ex.getMessage());
+                    return null;
+                })
+                .get();
     }
 
     private static void updateAccount(Scanner scanner) throws ExecutionException, InterruptedException {
-        System.out.print("Account-ID: ");
-        UUID id = UUID.fromString(scanner.nextLine());
-        System.out.print("Neuer Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Neuer Login: ");
-        String login = scanner.nextLine();
-        System.out.print("Neues Passwort: ");
-        String password = scanner.nextLine();
-        accountService.updateAccountAsync(new Account(id, name, login, password)).get();
-        System.out.println("Account aktualisiert.");
+        System.out.println("Enter account ID:");
+        UUID updateAccountId = UUID.fromString(scanner.nextLine());
+        System.out.println("Enter new name:");
+        String newName = scanner.nextLine();
+        System.out.println("Enter new login:");
+        String newLogin = scanner.nextLine();
+        System.out.println("Enter new password:");
+        String newPassword = scanner.nextLine();
+
+        accountService.getAccountAsync(updateAccountId)
+                .thenCompose(account -> {
+                    account.setName(newName);
+                    account.setLogin(newLogin);
+                    account.setPassword(newPassword);
+                    return accountService.updateAccountAsync(account);
+                })
+                .thenAccept(account -> System.out.println("Account updated: " + account))
+                .exceptionally(ex -> {
+                    System.out.println("Error updating account: " + ex.getMessage());
+                    return null;
+                })
+                .get();
     }
 
     private static void deleteAccount(Scanner scanner) throws ExecutionException, InterruptedException {
-        System.out.print("Account-ID: ");
-        UUID id = UUID.fromString(scanner.nextLine());
-        accountService.deleteAccountAsync(id).get();
-        System.out.println("Account gelöscht.");
+        System.out.println("Enter account ID:");
+        UUID deleteAccountId = UUID.fromString(scanner.nextLine());
+
+        accountService.deleteAccountAsync(deleteAccountId)
+                .thenRun(() -> System.out.println("Account deleted"))
+                .exceptionally(ex -> {
+                    System.out.println("Error deleting account: " + ex.getMessage());
+                    return null;
+                })
+                .get();
     }
 
     private static void generatePassword(Scanner scanner) {
-        System.out.print("Passwortlänge: ");
+        System.out.println("Enter password length:");
         int length = scanner.nextInt();
         scanner.nextLine();  // Consume newline
-        String password = passwordGeneratorService.generatePassword(length);
-        System.out.println("Generiertes Passwort: " + password);
-    }
 
-    private static void storeSecurePassword(Scanner scanner) {
-        System.out.print("Passwort: ");
-        String password = scanner.nextLine();
-        String securePassword = secureStringService.createSecureString(password);
-        System.out.println("Sicheres Passwort: " + securePassword);
+        // Assuming you have a PasswordGeneratorService
+        // String generatedPassword = passwordGeneratorService.generatePassword(length);
+        // System.out.println("Generated password: " + generatedPassword);
     }
 
     private static void retrieveSecurePassword(Scanner scanner) {

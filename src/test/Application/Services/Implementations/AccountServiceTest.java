@@ -158,6 +158,14 @@ public class AccountServiceTest {
     }
 
     @Test
+    void updatePasswordAsync_nonExistingId_throwsAccountNotFoundException() {
+        UUID id = UUID.randomUUID();
+        when(accountRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(AccountNotFoundException.class, () -> accountService.updatePasswordAsync(id, "newPassword").get());
+    }
+
+    @Test
     void getPasswordAsync_NotFound() {
         UUID accountId = UUID.randomUUID();
         when(accountRepository.findById(accountId)).thenReturn(Optional.empty());

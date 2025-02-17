@@ -5,14 +5,19 @@ import Data.Enitites.Account;
 import Data.Repositories.AccountRepository;
 import Exceptions.AccountNotFoundException;
 import Exceptions.InvalidInputException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
+@Service
 public class AccountService implements IAccountService {
+
     private final AccountRepository accountRepository;
 
+    @Autowired
     public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
@@ -55,6 +60,7 @@ public class AccountService implements IAccountService {
         });
     }
 
+    @Override
     public CompletableFuture<Void> updatePasswordAsync(UUID id, String newPassword) {
         return CompletableFuture.runAsync(() -> {
             Account account = accountRepository.findById(id)
@@ -64,6 +70,7 @@ public class AccountService implements IAccountService {
         });
     }
 
+    @Override
     public CompletableFuture<String> getPasswordAsync(UUID id) {
         return CompletableFuture.supplyAsync(() -> {
             Account account = accountRepository.findById(id)
