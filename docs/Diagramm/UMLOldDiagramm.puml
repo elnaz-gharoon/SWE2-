@@ -1,0 +1,21 @@
+@startuml
+class Account {
+    - UUID id
+    - String name
+    - String login
+    - String passwordHash
+    - static BCryptPasswordEncoder encoder
+
+    + Account(UUID id, String name, String login, String password)
+    - String encodePassword(String password)
+    + void setPassword(String newPassword)
+    + boolean checkPassword(String rawPassword)
+
+    + UUID getId()
+    + String getName()
+    + void setName(String name)
+    + String getLogin()
+    + void setLogin(String login)
+    + String toString()
+}
+@enduml
