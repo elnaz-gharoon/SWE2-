@@ -22,6 +22,7 @@ public class MainApplication {
     public static void main(String[] args) {
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
+
         // Clean up hooks
         Runtime.getRuntime().addShutdownHook(new Thread(context::close));
 
