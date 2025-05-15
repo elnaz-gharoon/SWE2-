@@ -1,7 +1,7 @@
 package Services.Implementations;
 
 
-import Application.Services.Implementations.PasswordGeneratorService;
+import com.elnaz.Application.Services.Implementations.PasswordGeneratorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

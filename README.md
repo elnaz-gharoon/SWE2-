@@ -29,7 +29,7 @@ Ein Passwort-Management-System, das es Benutzern ermöglicht, Accounts zu erstel
 3. **Erstellen und starten Sie das Projekt mit Maven:**
     ```sh
     mvn clean install
-    mvn exec:java -Dexec.mainClass="https://github.com/elnaz-gharoon/SWE2-/blob/main/src/main/java/MainApplication.java"
+    mvn exec:java -Dexec.mainClass="https://github.com/elnaz-gharoon/SWE2-/blob/main/src/main/java/com.elnaz.Application.MainApplication.java"
     ```
 
 ## Verwendung

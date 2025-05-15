@@ -1,10 +1,10 @@
 package Services.Implementations;
 
-import Application.Services.Implementations.AccountService;
-import Data.Enitites.Account;
-import Data.Repositories.AccountRepository;
-import Exceptions.AccountNotFoundException;
-import Exceptions.InvalidInputException;
+import com.elnaz.Application.Services.Implementations.AccountService;
+import com.elnaz.Application.Data.Enitites.Account;
+import com.elnaz.Application.Data.Repositories.AccountRepository;
+import com.elnaz.Application.Exceptions.AccountNotFoundException;
+import com.elnaz.Application.Exceptions.InvalidInputException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

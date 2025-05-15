@@ -1,6 +1,6 @@
 package Services.Implementations;
 
-import Application.Services.Implementations.SecureStringService;
+import com.elnaz.Application.Services.Implementations.SecureStringService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
