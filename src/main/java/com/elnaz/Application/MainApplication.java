@@ -2,10 +2,8 @@ package com.elnaz.Application;
 
 import com.elnaz.Application.Services.Implementations.AccountService;
 import com.elnaz.Application.Services.Implementations.SecureStringService;
-import com.elnaz.Application.Config.AppConfig;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
 
 import java.util.Scanner;
 import java.util.UUID;
@@ -17,7 +15,10 @@ public class MainApplication {
     private static SecureStringService secureStringService;
 
     public static void main(String[] args) {
-        AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        var context = SpringApplication.run(MainApplication.class, args);
+
+        accountService = context.getBean(AccountService.class);
+        secureStringService = context.getBean(SecureStringService.class);
 
 
         // Clean up hooks
@@ -90,22 +91,22 @@ public class MainApplication {
         System.out.println("Enter password:");
         String password = scanner.nextLine();
 
-        accountService.createAccountAsync(name, login, password)
-                .thenAccept(account -> System.out.println("Account created: " + account))
-                .get();
+//        accountService.createAccountAsync(name, login, password)
+//                .thenAccept(account -> System.out.println("Account created: " + account))
+//                .get();
     }
 
     private static void viewAccount(Scanner scanner) throws ExecutionException, InterruptedException {
         System.out.println("Enter account ID:");
         UUID accountId = UUID.fromString(scanner.nextLine());
 
-        accountService.getAccountAsync(accountId)
-                .thenAccept(account -> System.out.println("Account: " + account))
-                .exceptionally(ex -> {
-                    System.out.println("Account not found: " + ex.getMessage());
-                    return null;
-                })
-                .get();
+//        accountService.getAccountAsync(accountId)
+//                .thenAccept(account -> System.out.println("Account: " + account))
+//                .exceptionally(ex -> {
+//                    System.out.println("Account not found: " + ex.getMessage());
+//                    return null;
+//                })
+//                .get();
     }
 
     private static void updateAccount(Scanner scanner) throws ExecutionException, InterruptedException {
@@ -118,32 +119,32 @@ public class MainApplication {
         System.out.println("Enter new password:");
         String newPassword = scanner.nextLine();
 
-        accountService.getAccountAsync(updateAccountId)
-                .thenCompose(account -> {
-                    account.setName(newName);
-                    account.setLogin(newLogin);
-                    account.setPassword(newPassword);
-                    return accountService.updateAccountAsync(account);
-                })
-                .thenAccept(account -> System.out.println("Account updated: " + account))
-                .exceptionally(ex -> {
-                    System.out.println("Error updating account: " + ex.getMessage());
-                    return null;
-                })
-                .get();
+//        accountService.getAccountAsync(updateAccountId)
+//                .thenCompose(account -> {
+//                    account.setName(newName);
+//                    account.setLogin(newLogin);
+//                    account.setPassword(newPassword);
+//                    return accountService.updateAccountAsync(account);
+//                })
+//                .thenAccept(account -> System.out.println("Account updated: " + account))
+//                .exceptionally(ex -> {
+//                    System.out.println("Error updating account: " + ex.getMessage());
+//                    return null;
+//                })
+//                .get();
     }
 
     private static void deleteAccount(Scanner scanner) throws ExecutionException, InterruptedException {
         System.out.println("Enter account ID:");
         UUID deleteAccountId = UUID.fromString(scanner.nextLine());
 
-        accountService.deleteAccountAsync(deleteAccountId)
-                .thenRun(() -> System.out.println("Account deleted"))
-                .exceptionally(ex -> {
-                    System.out.println("Error deleting account: " + ex.getMessage());
-                    return null;
-                })
-                .get();
+//        accountService.deleteAccountAsync(deleteAccountId)
+//                .thenRun(() -> System.out.println("Account deleted"))
+//                .exceptionally(ex -> {
+//                    System.out.println("Error deleting account: " + ex.getMessage());
+//                    return null;
+//                })
+//                .get();
     }
 
     private static void generatePassword(Scanner scanner) {
@@ -168,14 +169,14 @@ public class MainApplication {
         UUID id = UUID.fromString(scanner.nextLine());
         System.out.print("Neues Passwort: ");
         String newPassword = scanner.nextLine();
-        accountService.updatePasswordAsync(id, newPassword).get();
-        System.out.println("Passwort aktualisiert.");
+//        accountService.updatePasswordAsync(id, newPassword).get();
+//        System.out.println("Passwort aktualisiert.");
     }
 
     private static void showPassword(Scanner scanner) throws ExecutionException, InterruptedException {
         System.out.print("Account-ID: ");
         UUID id = UUID.fromString(scanner.nextLine());
-        String password = accountService.getPasswordAsync(id).get();
-        System.out.println("Passwort: " + password);
+//        String password = accountService.getPasswordAsync(id).get();
+//        System.out.println("Passwort: " + password);
     }
 }
