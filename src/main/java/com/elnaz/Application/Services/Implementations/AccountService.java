@@ -19,11 +19,11 @@ public class AccountService {
     }
 
     // Create account
-    public Account createAccount(Account account) {
+    public void createAccount(Account account) {
         if (account.getId() == null) {
             account.setId(UUID.randomUUID());
         }
-        return accountRepository.save(account);
+        accountRepository.save(account);
     }
 
     // Retrieve account by id

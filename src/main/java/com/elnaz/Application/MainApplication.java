@@ -1,5 +1,6 @@
 package com.elnaz.Application;
 
+import com.elnaz.Application.Data.Enitites.Account;
 import com.elnaz.Application.Services.Implementations.AccountService;
 import com.elnaz.Application.Services.Implementations.SecureStringService;
 import org.springframework.boot.SpringApplication;
@@ -84,12 +85,14 @@ public class MainApplication {
     }
 
     private static void createAccount(Scanner scanner) throws ExecutionException, InterruptedException {
-        System.out.println("Enter account name:");
+        System.out.print("Enter account name:");
         String name = scanner.nextLine();
-        System.out.println("Enter login:");
+        System.out.print("Enter login:");
         String login = scanner.nextLine();
-        System.out.println("Enter password:");
+        System.out.print("Enter password:");
         String password = scanner.nextLine();
+
+        accountService.createAccount(new Account(UUID.randomUUID(), name, login, password));
 
 //        accountService.createAccountAsync(name, login, password)
 //                .thenAccept(account -> System.out.println("Account created: " + account))
