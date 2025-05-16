@@ -2,10 +2,13 @@ package com.elnaz.Application.Config;
 
 import com.elnaz.Application.Services.Implementations.*;
 import com.elnaz.Application.Data.Repositories.AccountRepository;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+
+import javax.sql.DataSource;
 
 /**
  * Spring configuration class that defines Beans for dependency injection.
@@ -15,28 +18,14 @@ import org.springframework.context.annotation.Scope;
 @ComponentScan(basePackages = "com.elnaz.Application.Services") // Scans the package for components
 public class AppConfig {
 
-    /**
-     * Creates and provides an AccountRepository Bean.
-     * This repository handles database operations related to accounts.
-     *
-     * @return an instance of AccountRepository
-     */
     @Bean
-    @Scope("singleton") // Ensures only one instance exists
-    public AccountRepository accountRepository() {
-        return new AccountRepository();
-    }
-
-    /**
-     * Creates and provides an AccountService Bean with AccountRepository injected.
-     *
-     * @param accountRepository The repository used for account management
-     * @return an instance of AccountService
-     */
-    @Bean
-    @Scope("singleton")
-    public AccountService accountService(AccountRepository accountRepository) {
-        return new AccountService(accountRepository);
+    public DataSource dataSource() {
+        return DataSourceBuilder.create()
+                .driverClassName("org.h2.Driver")
+                .url("jdbc:h2:file:./data/mydb;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE")
+                .username("sa")
+                .password("")
+                .build();
     }
 
     /**
