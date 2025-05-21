@@ -37,14 +37,8 @@ public class AccountService {
     }
 
     // Update account
-    public Account updateAccount(Account account) {
-        // Make sure account exists first
-        Optional<Account> existing = accountRepository.findById(account.getId());
-        if (existing.isPresent()) {
-            return accountRepository.save(account);
-        } else {
-            throw new IllegalArgumentException("Account not found for id: " + account.getId());
-        }
+    public void updateAccount(Account account) {
+        accountRepository.save(account);
     }
 
     // Delete account by id

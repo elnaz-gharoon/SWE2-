@@ -1,6 +1,8 @@
 package com.elnaz.Application.Services.Implementations;
 
 import com.elnaz.Application.Services.Interfaces.IPasswordGeneratorService;
+import org.springframework.stereotype.Service;
+
 import java.security.SecureRandom;
 
 /**
@@ -8,6 +10,7 @@ import java.security.SecureRandom;
  * It offers flexibility in choosing the length of the password and whether to include
  * uppercase letters, numbers, and special symbols.
  */
+@Service
 public class PasswordGeneratorService implements IPasswordGeneratorService {
 
     // Constants for different character sets
