@@ -30,7 +30,15 @@ public class MainApplication {
         // Clean up hooks
         Runtime.getRuntime().addShutdownHook(new Thread(context::close));
 
-        // Scanner for user input
+        /*
+         * Main control loop of the password manager application.
+         * This method displays a menu-driven interface that allows the user to:
+         * - Create and manage accounts
+         * - Generate and retrieve secure passwords
+         * - Update or delete stored credentials
+         * The loop handles user input safely and runs until the user chooses to exit.
+         */
+
         Scanner scanner = new Scanner(System.in);
         int option;
 
@@ -41,8 +49,9 @@ public class MainApplication {
                 switch (option) {
                     case 1:
                         System.out.println(">>>>> Create A New Account <<<<<");
+                        System.out.println("Please Enter your name, username and password");
                         createAccount(scanner);
-                        System.out.println("New account has been created...");
+                        System.out.println("New account has been created");
                         break;
                     case 2:
                         System.out.println(">>>>> All Accounts List! <<<<<");
@@ -96,9 +105,9 @@ public class MainApplication {
     }
 
     private static int mainMenu(Scanner scanner) {
-        System.out.println("---------- Welcome to the Password Manager! ----------");
+        System.out.println("--------- Welcome to the Password Manager! --------");
         System.out.println("1. Create Account");
-        System.out.println("2. View All Account");
+        System.out.println("2. View All Accounts");
         System.out.println("3. Find Account By ID");
         System.out.println("4. Update Account");
         System.out.println("5. Delete Account");
@@ -110,9 +119,18 @@ public class MainApplication {
         System.out.print("Select an option: ");
         return scanner.nextInt();
     }
+    /**
+     * Prompts the user to enter an account UUID and attempts to parse it.
+     * If the input is not in a valid UUID format, an error message is shown and null is returned.
+     * This method ensures that only properly formatted UUIDs are accepted for further processing.
+     *
+     * @param scanner Scanner object used to read user input
+     * @return A valid UUID object if the input is correctly formatted, otherwise null
+     */
+
 
     private static UUID getAndFormatAccountID(Scanner scanner) {
-        System.out.print("Enter account ID: ");
+        System.out.print("Enter account UUID: ");
         UUID accountId;
         try {
             accountId = UUID.fromString(scanner.nextLine());
@@ -123,17 +141,31 @@ public class MainApplication {
         return accountId;
     }
 
+    /**
+     * Collects user input to create a new account.
+     * The password is securely encrypted before being stored.
+     * A new Account object is created with a randomly generated UUID and passed to the account service for persistence.
+     * @param scanner Scanner object used to read input from the user
+     */
     private static void createAccount(Scanner scanner) {
-        System.out.print("Enter account name: ");
+        System.out.print("Enter your name: ");
         String name = scanner.nextLine();
-        System.out.print("Enter login: ");
+        System.out.print("Please Enter username: ");
         String login = scanner.nextLine();
         System.out.print("Enter password: ");
         String encryptedPassword = secureStringService.createSecureString(scanner.nextLine());
 
         accountService.createAccount(new Account(UUID.randomUUID(), name, login, encryptedPassword));
     }
-
+    /**
+     * Searches for and displays an account based on a user-provided UUID.
+     * The method prompts the user to enter an account ID, validates its format,
+     * and attempts to retrieve the corresponding account from the account service.
+     * If found, the account details are printed; otherwise, a not-found message is shown.
+     * Waits for user input before continuing to ensure the output is readable.
+     *
+     * @param scanner Scanner object used to read user input
+     */
     private static void findAccountById(Scanner scanner) {
         UUID accountId = getAndFormatAccountID(scanner);
 
@@ -152,9 +184,21 @@ public class MainApplication {
                 System.out.println("Account not found for ID: " + accountId);
             }
         }
+        System.out.println("--------------------------------------");
         System.out.println("Press any key to continue.");
+        System.out.println("--------------------------------------");
         scanner.nextLine();
     }
+
+    /**
+     * Retrieves and displays a list of all stored accounts in a formatted table.
+     * Each account is printed with a row number, ID, name, login, and password.
+     * The method waits for user input before proceeding to ensure the user can view the output.
+     * May throw ExecutionException or InterruptedException depending on the underlying data retrieval process.
+     * @param scanner Scanner object used to pause for user input after displaying the accounts
+     * @throws ExecutionException if retrieving accounts fails due to concurrent processing
+     * @throws InterruptedException if the operation is interrupted during execution
+     */
 
     private static void viewAllAccounts(Scanner scanner) throws ExecutionException, InterruptedException {
         List<Account> accounts = accountService.getAllAccounts();
@@ -172,8 +216,20 @@ public class MainApplication {
         );
         System.out.println("--------------------------------------");
         System.out.println("Press any key to continue.");
+        System.out.println("--------------------------------------");
         scanner.nextLine();
     }
+
+    /**
+     * Updates an existing account with new information provided by the user.
+     * The method prompts the user to enter an account UUID and verifies its existence.
+     * If the account is found, the user is asked to input a new name, username, and password.
+     * The new password is securely encrypted before the account is updated in the system.
+     * Displays a confirmation message after a successful update or an error if the account is not found.
+     * Waits for user input before returning to ensure the output is readable.
+     *
+     * @param scanner Scanner object used to read input from the user
+     */
 
     private static void updateAccount(Scanner scanner) {
         UUID accountId = getAndFormatAccountID(scanner);
@@ -184,7 +240,7 @@ public class MainApplication {
                 Account existingAccount = currentAccount.get();
                 System.out.printf("Enter new name (%s): ", existingAccount.getName());
                 String newName = scanner.nextLine();
-                System.out.printf("Enter new login (%s): ", existingAccount.getLogin());
+                System.out.printf("Enter new username (%s): ", existingAccount.getLogin());
                 String newLogin = scanner.nextLine();
                 System.out.print("Enter new password: ");
                 String encryptedPassword = secureStringService.createSecureString(scanner.nextLine());
@@ -195,9 +251,20 @@ public class MainApplication {
                 System.out.println("Account not found for ID: " + accountId);
             }
         }
+        System.out.println("--------------------------------------");
         System.out.println("Press any key to continue.");
         scanner.nextLine();
     }
+    /**
+     * Deletes an existing account identified by a UUID provided by the user.
+     * The method prompts the user for an account ID, verifies if the account exists,
+     * and deletes it using the account service if found. Otherwise, it displays an error message.
+     * Displays a confirmation upon successful deletion.
+     * May throw ExecutionException or InterruptedException depending on service behavior.
+     * @param scanner Scanner object used to read user input
+     * @throws ExecutionException if the delete operation fails during asynchronous execution
+     * @throws InterruptedException if the operation is interrupted
+     */
 
     private static void deleteAccount(Scanner scanner) throws ExecutionException, InterruptedException {
         UUID accountId = getAndFormatAccountID(scanner);
@@ -210,9 +277,20 @@ public class MainApplication {
                 System.out.println("Account not found for ID: " + accountId);
             }
         }
+        System.out.println("--------------------------------------");
         System.out.println("Press any key to continue.");
         scanner.nextLine();
     }
+
+    /**
+     * Generates a secure random password based on a user-defined length.
+     * The method prompts the user to specify the desired password length,
+     * calls the password generator service to create a secure password,
+     * Waits for user input before continuing to ensure the output is visible.
+     *
+     * @param scanner Scanner object used to read user input
+     */
+
 
     private static void generatePassword(Scanner scanner) {
         System.out.print("Enter password length: ");
@@ -222,18 +300,41 @@ public class MainApplication {
         // Assuming you have a PasswordGeneratorService
         String generatedPassword = passwordGeneratorService.generatePassword(length);
         System.out.println("Generated password: " + generatedPassword);
+        System.out.println("--------------------------------------");
         System.out.println("Press any key to continue.");
         scanner.nextLine();
     }
+
+    /**
+     * Decrypts and displays a previously encrypted (secure) password.
+     * The user is prompted to enter the encrypted password string,
+     * which is then passed to the secure string service for decryption.
+     * Waits for user input before continuing to ensure the result is visible.
+     *
+     * @param scanner Scanner object used to read user input
+     */
 
     private static void retrieveSecurePassword(Scanner scanner) {
         System.out.print("Sicheres Passwort: ");
         String securePassword = scanner.nextLine();
         String password = secureStringService.retrieveString(securePassword);
         System.out.println("Entschlüsseltes Passwort: " + password);
+        System.out.println("--------------------------------------");
         System.out.println("Press any key to continue.");
         scanner.nextLine();
     }
+
+    /**
+     * Updates the password of an existing account specified by a user-provided UUID.
+     * After verifying the account exists, the method prompts the user for a new password,
+     * securely encrypts it using the secure string service, and updates the account
+     * while preserving the existing name and login credentials.
+     * Waits for user input before continuing to ensure the user can read the output.
+     *
+     * @param scanner Scanner object used to read user input
+     * @throws ExecutionException if the update operation fails during asynchronous processing
+     * @throws InterruptedException if the thread is interrupted during execution
+     */
 
     private static void updatePassword(Scanner scanner) throws ExecutionException, InterruptedException {
         UUID accountId = getAndFormatAccountID(scanner);
@@ -262,6 +363,19 @@ public class MainApplication {
         scanner.nextLine();
     }
 
+    /**
+     * Displays both the encrypted and decrypted password for a specific account identified by UUID.
+     * The method prompts the user to enter the account ID, verifies its existence,
+     * and then prints the account ID, the stored (encrypted) password, and the decrypted password.
+     * Useful for administrators or users who need to verify stored credentials.
+     * Waits for user input before returning to ensure the information is visible.
+     *
+     * @param scanner Scanner object used to read user input
+     * @throws ExecutionException if retrieving the account fails during asynchronous execution
+     * @throws InterruptedException if the operation is interrupted during processing
+     */
+
+
     private static void showPassword(Scanner scanner) throws ExecutionException, InterruptedException {
         UUID accountId = getAndFormatAccountID(scanner);
         if (accountId != null) {
@@ -271,6 +385,7 @@ public class MainApplication {
                 System.out.println("Account ID: " + existingAccount.getId());
                 System.out.println("Encrypted Password: " + existingAccount.getPassword());
                 System.out.println("Decrypted Password: " + secureStringService.retrieveString(existingAccount.getPassword()));
+                System.out.println("--------------------------------------");
                 System.out.println("Press any key to continue.");
                 scanner.nextLine();
             }
