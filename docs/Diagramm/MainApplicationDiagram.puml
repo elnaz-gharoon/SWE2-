@@ -1,0 +1,31 @@
+@startuml
+class MainApplication {
+    - accountService: AccountService
+    - secureStringService: SecureStringService
+    - passwordGeneratorService: PasswordGeneratorService
+
+    + main(args: String[]): void
+    - mainMenu(scanner: Scanner): int
+    - getAndFormatAccountID(scanner: Scanner): UUID
+    - createAccount(scanner: Scanner): void
+    - findAccountById(scanner: Scanner): void
+    - viewAllAccounts(scanner: Scanner): void
+    - updateAccount(scanner: Scanner): void
+    - deleteAccount(scanner: Scanner): void
+    - generatePassword(scanner: Scanner): void
+    - retrieveSecurePassword(scanner: Scanner): void
+    - updatePassword(scanner: Scanner): void
+    - showPassword(scanner: Scanner): void
+}
+
+class AccountService
+class SecureStringService
+class PasswordGeneratorService
+class Account
+
+MainApplication --> AccountService
+MainApplication --> SecureStringService
+MainApplication --> PasswordGeneratorService
+MainApplication --> Account
+
+@enduml
