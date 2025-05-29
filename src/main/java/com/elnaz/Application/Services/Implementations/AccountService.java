@@ -31,6 +31,8 @@ public class AccountService {
         return accountRepository.findById(id);
     }
 
+    public Optional<Account> getAccountByLogin(String login) { return accountRepository.findByLogin(login);}
+
     // Retrieve all accounts
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();

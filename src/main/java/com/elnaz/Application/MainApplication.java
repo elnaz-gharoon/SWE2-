@@ -160,9 +160,9 @@ public class MainApplication {
             System.out.print("Please Enter username: ");
             login = scanner.nextLine();
 
-            boolean success = userService.registerNewUser(login);
-            if (!success) {
-                System.out.println("Username already taken! Please try again.");
+            Optional<Account> user = accountService.getAccountByLogin(login);
+            if (user.isPresent()) {
+                System.out.printf("The given username (%s) already taken! Please try again.\n", login);
             } else {
                 break;
             }
@@ -189,7 +189,7 @@ public class MainApplication {
             if (accountOpt.isPresent()) {
                 Account account = accountOpt.get();
                 System.out.printf(
-                        "Account ID: %s\nName: %s\nLogin: %s\nPassword: %s\n",
+                        "Account ID: %s\nName: %s\nUsername: %s\nPassword: %s\n",
                         account.getId(),
                         account.getName(),
                         account.getLogin(),
@@ -217,7 +217,7 @@ public class MainApplication {
 
     private static void viewAllAccounts(Scanner scanner) throws ExecutionException, InterruptedException {
         List<Account> accounts = accountService.getAllAccounts();
-        System.out.printf("| %-4s | %-36s | %-15s | %-20s | %-24s |\n", "No.", "ID", "Name", "Login", "Password");
+        System.out.printf("| %-4s | %-36s | %-15s | %-20s | %-24s |\n", "No.", "ID", "Name", "Username", "Password");
         AtomicInteger rowNo = new AtomicInteger(1);
         accounts.forEach(account ->
             System.out.printf(

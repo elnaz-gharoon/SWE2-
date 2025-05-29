@@ -63,6 +63,15 @@ public class AccountRepository {
         return results.stream().findFirst();
     }
 
+    public Optional<Account> findByLogin(String login) {
+        List<Account> results = jdbcTemplate.query(
+                "SELECT * FROM accounts WHERE login = ?",
+                new Object[]{login},
+                new AccountRowMapper()
+        );
+        return results.stream().findFirst();
+    }
+
     public List<Account> findAll() {
         return jdbcTemplate.query("SELECT * FROM accounts", new AccountRowMapper());
     }
