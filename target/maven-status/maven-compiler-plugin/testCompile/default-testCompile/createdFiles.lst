@@ -1,3 +1,4 @@
+testImplementations\AccountServiceTest.class
+testImplementations\AccountRepositoryTest.class
 testImplementations\SecureStringServiceTest.class
 testImplementations\PasswordGeneratorServiceTest.class
-testImplementations\AccountServiceTest.class

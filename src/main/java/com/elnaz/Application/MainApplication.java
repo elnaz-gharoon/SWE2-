@@ -4,6 +4,7 @@ import com.elnaz.Application.Data.Enitites.Account;
 import com.elnaz.Application.Services.Implementations.AccountService;
 import com.elnaz.Application.Services.Implementations.PasswordGeneratorService;
 import com.elnaz.Application.Services.Implementations.SecureStringService;
+import com.elnaz.Application.Services.Implementations.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -19,6 +20,7 @@ public class MainApplication {
     private static AccountService accountService;
     private static SecureStringService secureStringService;
     private static PasswordGeneratorService passwordGeneratorService;
+    private static UserService userService;
 
     public static void main(String[] args) {
         var context = SpringApplication.run(MainApplication.class, args);
@@ -26,6 +28,7 @@ public class MainApplication {
         accountService = context.getBean(AccountService.class);
         secureStringService = context.getBean(SecureStringService.class);
         passwordGeneratorService = context.getBean(PasswordGeneratorService.class);
+        userService = context.getBean(UserService.class);
 
         // Clean up hooks
         Runtime.getRuntime().addShutdownHook(new Thread(context::close));
@@ -150,8 +153,20 @@ public class MainApplication {
     private static void createAccount(Scanner scanner) {
         System.out.print("Enter your name: ");
         String name = scanner.nextLine();
-        System.out.print("Please Enter username: ");
-        String login = scanner.nextLine();
+
+
+        String login;
+        while (true) {
+            System.out.print("Please Enter username: ");
+            login = scanner.nextLine();
+
+            boolean success = userService.registerNewUser(login);
+            if (!success) {
+                System.out.println("Username already taken! Please try again.");
+            } else {
+                break;
+            }
+        }
         System.out.print("Enter password: ");
         String encryptedPassword = secureStringService.createSecureString(scanner.nextLine());
 
