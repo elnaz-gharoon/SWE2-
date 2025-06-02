@@ -52,6 +52,9 @@ Um die Tests auszuführen, verwenden Sie den folgenden Befehl:
 mvn test
 ```
 
+## Datenbank:
+Dieses Projekt verwendet eine eingebettete H2-Datenbank im Datei-Modus (./mydb). Sie wird automatisch beim Start erstellt und benötigt keine zusätzliche Konfiguration.
+
 ## Lizenz
 
 nix.
