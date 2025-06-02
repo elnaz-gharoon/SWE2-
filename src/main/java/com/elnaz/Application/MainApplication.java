@@ -257,6 +257,17 @@ public class MainApplication {
                 String newName = scanner.nextLine();
                 System.out.printf("Enter new username (%s): ", existingAccount.getLogin());
                 String newLogin = scanner.nextLine();
+                while (true) {
+                    System.out.print("Please Enter username: ");
+                    newLogin = scanner.nextLine();
+
+                    Optional<Account> user = accountService.getAccountByLogin(newLogin);
+                    if (user.isPresent()) {
+                        System.out.printf("The given username (%s) already taken! Please try again.\n", newLogin);
+                    } else {
+                        break;
+                    }
+                }
                 System.out.print("Enter new password: ");
                 String encryptedPassword = secureStringService.createSecureString(scanner.nextLine());
 
