@@ -7,6 +7,17 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.UUID;
 @Service
+/**
+ * Implementation of the UserService interface, providing user-related business logic.
+ *
+ * This service is responsible for:
+ * - Registering new users if the username is not already taken.
+ * - Looking up users by username or ID.
+ * - Deleting users by ID.
+ *
+ * It uses the UserRepository to interact with the underlying database,
+ * leveraging Spring Data JPA for data persistence.
+ */
 public class UserServiceImp implements UserService{
     private final UserRepository userRepository;
 

@@ -9,35 +9,37 @@ import java.util.UUID;
 public interface UserService {
 
 
-
         /**
-         * Registriert einen neuen Benutzer mit dem gegebenen Benutzernamen.
-         * @param username der Benutzername des neuen Benutzers
-         * @return true, wenn der Benutzer erfolgreich registriert wurde, false wenn der Benutzername bereits vergeben ist
+         * Registers a new user with the given username.
+         *
+         * @param username the username of the new user
+         * @return true if the user was successfully registered, false if the username is already taken
          */
+
         boolean registerNewUser(String username);
 
         /**
-         * Sucht einen Benutzer anhand seines Benutzernamens.
-         * @param username der Benutzername, nach dem gesucht wird
-         * @return Optional mit User, falls gefunden, sonst empty
+         * Searches for a user by their username.
+         * @param username the username to search for
+         * @return Optional containing the User if found, otherwise empty
          */
         Optional<User> findUserByUsername(String username);
 
         /**
-         * Sucht einen Benutzer anhand seiner UUID.
-         * @param id die UUID des Benutzers
-         * @return Optional mit User, falls gefunden, sonst empty
+         * Searches for a user by their UUID.
+         * @param id the UUID of the user
+         * @return Optional containing the User if found, otherwise empty
          */
+
         Optional<User> findUserById(UUID id);
 
         /**
-         * Löscht einen Benutzer anhand seiner UUID.
-         * @param id die UUID des Benutzers, der gelöscht werden soll
+         * Deletes a user by their UUID.
+         * @param id the UUID of the user to be deleted
          */
+
         void deleteUserById(UUID id);
 
-        // Du kannst weitere Methoden hinzufügen, z.B. Update, Passwortänderung, etc.
     }
 
 

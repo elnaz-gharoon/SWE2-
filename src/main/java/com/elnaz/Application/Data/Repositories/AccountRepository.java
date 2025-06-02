@@ -12,7 +12,25 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+
+
 @Repository
+
+/**
+ * Repository class for performing CRUD operations on Account entities using JDBC.
+ *
+ * This class uses Spring's JdbcTemplate to manually manage SQL interactions
+ * with an "accounts" table in the database. The table is created (if not already existing)
+ * at startup using the @PostConstruct-annotated `init()` method.
+ *
+ * Responsibilities:
+ * - Saving (insert or update) account records.
+ * - Finding accounts by ID or login.
+ * - Listing all accounts.
+ * - Deleting accounts by ID.
+ *
+ * Uses an internal AccountRowMapper to convert SQL ResultSet rows to Account objects.
+ */
 public class AccountRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -24,10 +42,11 @@ public class AccountRepository {
     @PostConstruct
     public void init() {
         jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS accounts (" +
-                             "id UUID PRIMARY KEY," +
+                             "id UUID PRIMARY KEY,"  +
                              "name VARCHAR(255)," +
                              "login VARCHAR(255)," +
                              "password VARCHAR(255))");
+
     }
 
     public Account save(Account account) {

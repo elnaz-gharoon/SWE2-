@@ -4,6 +4,14 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 import com.elnaz.Application.Data.Enitites.Account;
+/**
+ * Interface for managing account-related operations.
+ * Provides asynchronous methods for creating, retrieving,
+ * updating, and deleting accounts, as well as handling password management.
+ *
+ * All methods return CompletableFutures to support non-blocking operations.
+ */
+
 public interface IAccountService {
     CompletableFuture<Account> createAccountAsync(String name, String login, String password);
     CompletableFuture<Account> getAccountAsync(UUID id);

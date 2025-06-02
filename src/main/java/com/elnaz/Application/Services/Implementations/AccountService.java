@@ -13,12 +13,12 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
 
-    // Constructor injection
+    // Constructor
     public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 
-    // Create account
+    // Create and save account
     public void createAccount(Account account) {
         if (account.getId() == null) {
             account.setId(UUID.randomUUID());
@@ -38,10 +38,11 @@ public class AccountService {
         return accountRepository.findAll();
     }
 
-    // Update account
+    // Update account:
     public void updateAccount(Account account) {
         accountRepository.save(account);
     }
+
 
     // Delete account by id
     public void deleteAccount(UUID id) {
