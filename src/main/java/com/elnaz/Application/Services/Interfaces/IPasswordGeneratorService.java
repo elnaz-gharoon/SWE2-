@@ -1,25 +1,28 @@
 package com.elnaz.Application.Services.Interfaces;
 
 /**
- * Interface für den Passwort-Generator-Service.
- * Definiert Methoden zum Generieren von Passwörtern.
+ * Interface for the Password Generator Service.
+ * Defines methods for generating passwords.
  */
+
 public interface IPasswordGeneratorService {
     /**
-     * Generiert ein Passwort mit einer bestimmten Länge.
-     * @param length Die Länge des Passworts.
-     * @return Das generierte Passwort.
+     * Generates a password with a specified length.
+     * @param length The length of the password.
+     * @return The generated password.
      */
+
     String generatePassword(int length);
 
     /**
-     * Generiert ein Passwort mit bestimmten Eigenschaften.
-     * @param length Die Länge des Passworts.
-     * @param includeSymbols Ob das Passwort Symbole enthalten soll.
-     * @param includeNumbers Ob das Passwort Zahlen enthalten soll.
-     * @param includeUppercase Ob das Passwort Großbuchstaben enthalten soll.
-     * @return Das generierte Passwort.
+     * Generates a password with specific characteristics.
+     * @param length The length of the password.
+     * @param includeSymbols Whether the password should include symbols.
+     * @param includeNumbers Whether the password should include numbers.
+     * @param includeUppercase Whether the password should include uppercase letters.
+     * @return The generated password.
      */
+
     String generatePassword(int length, boolean includeSymbols, boolean includeNumbers, boolean includeUppercase);
 }
 

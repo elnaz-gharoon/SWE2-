@@ -1,22 +1,25 @@
 package com.elnaz.Application.Services.Interfaces;
 
 /**
- * Interface für den Secure String-Service.
- * Definiert Methoden zum Erstellen und Abrufen sicherer Strings.
+ * Interface for the Secure String Service.
+ * Defines methods for creating and retrieving secure strings.
  */
+
 public interface ISecureStringService {
     /**
-     * Erstellt einen sicheren String.
-     * @param input Der Eingabestring.
-     * @return Der sichere String.
-     */
+            * Creates a secure string.
+            * @param input The input string.
+            * @return The secure string.
+ */
+
     String createSecureString(String input);
 
     /**
-     * Ruft den ursprünglichen String aus einem sicheren String ab.
-     * @param secureString Der sichere String.
-     * @return Der ursprüngliche String.
+     * Retrieves the original string from a secure string.
+     * @param secureString The secure string.
+     * @return The original string.
      */
+
     String retrieveString(String secureString);
 }
 
