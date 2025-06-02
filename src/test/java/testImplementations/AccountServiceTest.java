@@ -18,6 +18,20 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the AccountService class.
+ *
+ * This test suite verifies the core functionalities of AccountService, including:
+ * - Creating accounts (with and without pre-set IDs)
+ * - Retrieving accounts by ID (found and not found cases)
+ * - Retrieving all accounts
+ * - Updating accounts
+ * - Deleting accounts
+ *
+ * The tests use Mockito to mock the AccountRepository dependency and ensure
+ * that AccountService behaves correctly under various scenarios.
+ */
+
 public class AccountServiceTest {
 
     @Mock
