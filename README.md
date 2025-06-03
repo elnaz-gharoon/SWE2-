@@ -18,6 +18,11 @@ Ein Passwort-Management-System, das es Benutzern ermöglicht, Accounts zu erstel
 
 ## Installation
 
+### Voraussetzungen
+
+- Java 21 muss installiert und die Umgebungsvariable `JAVA_HOME` korrekt gesetzt sein
+- Maven 3.8 oder höher installiert
+
 1. **Klonen Sie das Repository:**
     ```sh
     git clone https://github.com/elnaz-gharoon/SWE2-.git
