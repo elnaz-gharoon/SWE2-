@@ -1,10 +1,8 @@
 package com.elnaz.Application;
 
 import com.elnaz.Application.Data.Enitites.Account;
-import com.elnaz.Application.Services.Implementations.AccountService;
-import com.elnaz.Application.Services.Implementations.PasswordGeneratorService;
-import com.elnaz.Application.Services.Implementations.SecureStringService;
-import com.elnaz.Application.Services.Implementations.UserService;
+import com.elnaz.Application.Data.Enitites.Category;
+import com.elnaz.Application.Services.Implementations.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -21,6 +19,7 @@ public class MainApplication {
     private static SecureStringService secureStringService;
     private static PasswordGeneratorService passwordGeneratorService;
     private static UserService userService;
+    private static CategoryService categoryService;
 
     public static void main(String[] args) {
         var context = SpringApplication.run(MainApplication.class, args);
@@ -29,6 +28,7 @@ public class MainApplication {
         secureStringService = context.getBean(SecureStringService.class);
         passwordGeneratorService = context.getBean(PasswordGeneratorService.class);
         userService = context.getBean(UserService.class);
+        categoryService = context.getBean(CategoryService.class);
 
         // Clean up hooks
         Runtime.getRuntime().addShutdownHook(new Thread(context::close));
@@ -44,6 +44,7 @@ public class MainApplication {
 
         Scanner scanner = new Scanner(System.in);
         int option;
+
 
         do {
             option = mainMenu(scanner);
@@ -89,10 +90,16 @@ public class MainApplication {
                         showPassword(scanner);
                         break;
                     case 10:
+                        System.out.println(">>>>> Enter Category <<<<<");
+                        manageCategories(scanner);
+                        break;
+                    case 11:
                         System.out.println("Thanks for the using.");
                         System.out.println("By Elnaz");
                         System.out.println(">>>>> Good bye! <<<<<");
+
                         break;
+
                     default:
                         System.out.println(">>>>> Invalid option!!! <<<<<");
                         break;
@@ -102,10 +109,12 @@ public class MainApplication {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        } while (option != 10);
+        } while (option != 11);
 
         scanner.close();
     }
+
+
 
     private static int mainMenu(Scanner scanner) {
         System.out.println("--------- Welcome to the Password Manager! --------");
@@ -118,7 +127,8 @@ public class MainApplication {
         System.out.println("7. Retrieve Secure Password");
         System.out.println("8. Update Password");
         System.out.println("9. Show Password");
-        System.out.println("10. Exit");
+        System.out.println("10. Add Category");
+        System.out.println("11. Exit");
         System.out.print("Select an option: ");
         return scanner.nextInt();
     }
@@ -350,6 +360,33 @@ public class MainApplication {
         scanner.nextLine();
     }
 
+
+
+
+
+    private static void manageCategories(Scanner scanner) {
+        System.out.println("Categories currently in DB:");
+        List<Category> categories = categoryService.listAllCategories();
+        if (categories.isEmpty()) {
+            System.out.println("No categories found.");
+        } else {
+            categories.forEach(cat -> System.out.println("- " + cat.getName()));
+        }
+
+        System.out.print("Do you want to add a new category? (y/n): ");
+        String input = scanner.nextLine();
+        if (input.equalsIgnoreCase("y")) {
+            System.out.print("Enter new category name: ");
+            String newCategoryName = scanner.nextLine();
+
+            categoryService.createCategory(newCategoryName);
+            System.out.println("Category '" + newCategoryName + "' added successfully.");
+        }
+        System.out.println("--------------------------------------");
+        System.out.println("Press any key to continue.");
+        scanner.nextLine();
+
+    }
     /**
      * Updates the password of an existing account specified by a user-provided UUID.
      * After verifying the account exists, the method prompts the user for a new password,
@@ -415,6 +452,8 @@ public class MainApplication {
                 System.out.println("Press any key to continue.");
                 scanner.nextLine();
             }
+
         }
+
     }
 }

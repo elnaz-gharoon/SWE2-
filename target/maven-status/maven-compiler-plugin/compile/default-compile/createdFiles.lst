@@ -1,10 +1,14 @@
+com\elnaz\Application\Data\Repositories\CategoryRepository.class
 com\elnaz\Application\Services\Interfaces\IAccountService.class
+com\elnaz\Application\Services\Implementations\CategoryServiceImp.class
 com\elnaz\Application\Data\Enitites\Account.class
+com\elnaz\Application\Services\Implementations\CategoryService.class
 com\elnaz\Application\Services\Implementations\PasswordGeneratorService.class
 com\elnaz\Application\Data\Enitites\User.class
 com\elnaz\Application\Data\Repositories\AccountRepository$AccountRowMapper.class
 com\elnaz\Application\MainApplication.class
 com\elnaz\Application\Services\Interfaces\ISecureStringService.class
+com\elnaz\Application\Data\Enitites\Category.class
 com\elnaz\Application\Data\Repositories\AccountRepository.class
 com\elnaz\Application\Exceptions\InvalidInputException.class
 com\elnaz\Application\Services\Interfaces\ICryptService.class

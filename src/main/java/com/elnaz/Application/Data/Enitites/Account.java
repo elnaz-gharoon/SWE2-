@@ -1,5 +1,8 @@
 package com.elnaz.Application.Data.Enitites;
 
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 import java.util.UUID;
 
 /**
@@ -11,6 +14,10 @@ public class Account {
     private String name;
     private String login;
     private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     /**
      * Constructor for Account.
