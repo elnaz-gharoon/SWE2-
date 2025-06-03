@@ -26,9 +26,6 @@ Ein Passwort-Management-System, das es Benutzern ermöglicht, Accounts zu erstel
 1. **Klonen Sie das Repository:**
     ```sh
     git clone https://github.com/elnaz-gharoon/SWE2-.git
-    ```
-2. **Navigieren Sie in das Projektverzeichnis:**
-    ```sh
     cd pwmanager
     ```
 3. **Erstellen und starten Sie das Projekt mit Maven:**
