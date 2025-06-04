@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+
+  <!-- Actor: User -->
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>10</x>
+      <y>10</y>
+      <w>60</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>User</panel_attributes>
+    <additional_attributes/>
+  </element>
+
+  <!-- Entry Point: MainApplication -->
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>10</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>MainApplication</panel_attributes>
+    <additional_attributes/>
+  </element>
+
+  <!-- CLI Runner -->
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>60</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>CLIRunner</panel_attributes>
+    <additional_attributes/>
+  </element>
+
+  <!-- CommandParser -->
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>110</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>CommandParser</panel_attributes>
+    <additional_attributes/>
+  </element>
+
+  <!-- DI / Service Layer -->
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>60</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>DI</panel_attributes>
+    <additional_attributes/>
+  </element>
+
+  <!-- Controller Layer -->
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>110</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>CategoryController</panel_attributes>
+    <additional_attributes/>
+  </element>
+
+  <!-- Domain Entity -->
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>170</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Category</panel_attributes>
+    <additional_attributes/>
+  </element>
+
+  <!-- Relationships -->
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>60</x>
+      <y>40</y>
+      <w>100</w>
+      <h>10</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+App</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>40</y>
+      <w>10</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+initialisiert CLI</panel_attributes>
+    <additional_attributes>5.0;10.0;5.0;20.0</additional_attributes>
+  </element>
+
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>90</y>
+      <w>10</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>5.0;10.0;5.0;20.0</additional_attributes>
+  </element>
+
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>280</x>
+      <y>70</y>
+      <w>80</w>
+      <h>10</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+Inject Controller</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>410</x>
+      <y>90</y>
+      <w>10</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>5.0;10.0;5.0;30.0</additional_attributes>
+  </element>
+
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>410</x>
+      <y>140</y>
+      <w>10</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+arbeitet mit Entität</panel_attributes>
+    <additional_attributes>5.0;10.0;5.0;30.0</additional_attributes>
+  </element>
+</diagram>
