@@ -7,6 +7,14 @@ import jakarta.persistence.Id;
 
 import java.util.UUID;
 
+/**
+ * Entity representing a category in the system.
+ *
+ * This class is mapped to a database table using JPA annotations.
+ * Each category has a unique identifier (UUID) and a unique name.
+ * It is used to categorize and group related items or entities.
+ */
+
 @Entity
 public class Category {
 

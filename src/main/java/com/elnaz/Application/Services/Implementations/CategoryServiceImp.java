@@ -6,6 +6,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+/**
+ * Initializes the password manager by allowing the user to view existing categories
+ * and optionally create a new one. This method interacts with the user via the console
+ * and updates the database accordingly.
+ */
+
 @Service
 public class CategoryServiceImp implements CategoryService {
 

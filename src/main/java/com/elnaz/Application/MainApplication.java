@@ -360,9 +360,11 @@ public class MainApplication {
         scanner.nextLine();
     }
 
-
-
-
+    /**
+     * Handles the management of categories through console input.
+     * Displays all existing categories from the database and gives the user
+     * the option to add a new category. Waits for user input before continuing.
+     */
 
     private static void manageCategories(Scanner scanner) {
         System.out.println("Categories currently in DB:");
