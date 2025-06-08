@@ -16,6 +16,11 @@ Ein Passwort-Management-System, das es Benutzern ermöglicht, Accounts zu erstel
 - **Passwort ändern**: Ändern Sie das Passwort eines bestehenden Accounts.
 - **Passwort anzeigen**: Zeigen Sie das Passwort eines bestehenden Accounts an.
 
+## Dokumentation 
+
+Alle notwendigen Unterlagen und Informationen finden Sie im [Wiki].(https://github.com/elnaz-gharoon/SWE2-/wiki)
+
+
 ## Installation
 
 ### Voraussetzungen
