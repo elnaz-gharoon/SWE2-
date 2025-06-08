@@ -209,7 +209,6 @@ public class MainApplication {
                 System.out.println("Account not found for ID: " + accountId);
             }
         }
-        System.out.println("--------------------------------------");
         System.out.println("Press any key to continue.");
         System.out.println("--------------------------------------");
         scanner.nextLine();
@@ -239,7 +238,6 @@ public class MainApplication {
                     account.getPassword()
             )
         );
-        System.out.println("--------------------------------------");
         System.out.println("Press any key to continue.");
         System.out.println("--------------------------------------");
         scanner.nextLine();
@@ -424,6 +422,7 @@ public class MainApplication {
                 System.out.println("Account not found for ID: " + accountId);
             }
         }
+        System.out.println("--------------------------------------");
         System.out.println("Press any key to continue.");
         scanner.nextLine();
     }
