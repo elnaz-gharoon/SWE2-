@@ -16,7 +16,6 @@ Ein Passwort-Management-System, das es Benutzern ermöglicht, Accounts zu erstel
 - **Account-Aktualisierung**: Aktualisieren Sie die Details eines bestehenden Accounts.
 - **Account-Löschung**: Löschen Sie einen bestehenden Account.
 - **Passwort-Generierung**: Generieren Sie sichere Passwörter.
-- **Passwort-Speicherung**: Speichern Sie Passwörter sicher.
 - **Sicheres Passwort anzeigen**: Zeigen Sie ein sicheres, verschlüsseltes Passwort an.
 - **Passwort ändern**: Ändern Sie das Passwort eines bestehenden Accounts.
 - **Passwort anzeigen**: Zeigen Sie das Passwort eines bestehenden Accounts an.
