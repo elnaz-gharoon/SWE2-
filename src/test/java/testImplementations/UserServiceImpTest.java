@@ -8,11 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import java.util.Optional;
 import java.util.UUID;
-
-import static org.hamcrest.CoreMatchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -23,15 +20,13 @@ public class UserServiceImpTest {
     @InjectMocks
     private UserServiceImp userService;
 
+    // Initializes mocks before each test
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
-
-
-
-
+    // Tests whether a user is returned when the username exists in the repository
     @Test
     void findUserByUsername_ShouldReturnUser_IfExists() {
         String username = "john";
@@ -41,11 +36,11 @@ public class UserServiceImpTest {
         when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
 
         Optional<User> result = userService.findUserByUsername(username);
-
         assertTrue(result.isPresent());
         assertEquals(username, result.get().getUsername());
     }
 
+    // Tests that an empty Optional is returned when the username does not exist
     @Test
     void findUserByUsername_ShouldReturnEmpty_IfNotExists() {
         when(userRepository.findByUsername("missing")).thenReturn(Optional.empty());
@@ -55,6 +50,7 @@ public class UserServiceImpTest {
         assertFalse(result.isPresent());
     }
 
+    // Tests whether a user is returned when the ID exists in the repository
     @Test
     void findUserById_ShouldReturnUser_IfExists() {
         UUID id = UUID.randomUUID();
@@ -69,6 +65,7 @@ public class UserServiceImpTest {
         assertEquals(id, result.get().getId());
     }
 
+    // Tests that an empty Optional is returned when the ID does not exist
     @Test
     void findUserById_ShouldReturnEmpty_IfNotExists() {
         UUID id = UUID.randomUUID();
@@ -79,6 +76,7 @@ public class UserServiceImpTest {
         assertFalse(result.isPresent());
     }
 
+    // Verifies that the repository's deleteById method is called with the correct ID
     @Test
     void deleteUserById_ShouldCallRepositoryDelete() {
         UUID id = UUID.randomUUID();

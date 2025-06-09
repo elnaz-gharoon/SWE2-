@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
         private CategoryServiceImp categoryService;
 
 
-    // Testet, ob alle Kategorien aus dem Repository zurückgegeben werden
+    // Checks if all categories are returned from the repository
         @Test
         void listAllCategories_shouldReturnAllCategories() {
             List<Category> categories = List.of(new Category("Work"), new Category("Personal"));
@@ -39,7 +39,7 @@ import static org.mockito.Mockito.when;
             assertEquals(2, result.size());
         }
 
-    // Testet, ob eine Kategorie anhand ihres Namens gefunden wird
+    // Checks if a category is found by its name"
         @Test
         void findByName_shouldReturnCategoryIfExists() {
             Category category = new Category("Travel");
