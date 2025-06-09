@@ -18,7 +18,7 @@ Ein Passwort-Management-System, das es Benutzern ermöglicht, Accounts zu erstel
 
 ## Dokumentation 
 
-Alle notwendigen Unterlagen und Informationen finden Sie im [Wiki](https://github.com/elnaz-gharoon/SWE2-/wiki). Sowie im Dokumentation File beim Code.
+Alle notwendigen Unterlagen und Informationen finden Sie im [Wiki](https://github.com/elnaz-gharoon/SWE2-/wiki). sowie in der beigefügten docsDatei im Reposirory.
 
 
 
