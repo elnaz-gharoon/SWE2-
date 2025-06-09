@@ -18,8 +18,9 @@ Ein Passwort-Management-System, das es Benutzern ermöglicht, Accounts zu erstel
 
 ## Dokumentation 
 
-Alle notwendigen Unterlagen und Informationen finden Sie im [Wiki].(https://github.com/elnaz-gharoon/SWE2-/wiki)
+Alle notwendigen Unterlagen und Informationen finden Sie im [Wiki](https://github.com/elnaz-gharoon/SWE2-/wiki). sowie in der beigefügten docsDatei im Reposirory.
 
+Clone this Wiki localy : https://github.com/elnaz-gharoon/SWE2-.wiki.git
 
 ## Installation
 
@@ -69,6 +70,10 @@ nix.
 ## Beitragende
 
 - [Elnaz Gharoon](https://github.com/elnaz-gharoon)
+  
+Dieses Projekt wurde primär von mir Elnaz Gharoon Dastjeroy mit Matrikelnummer [6164634] im Rahmen des Moduls Advanced Software Engineering entwickelt.  
+Ich danke Ramin Armafar für die Unterstützung bei der Refaktorisierung einiger Code-Stellen im Sinne von Clean Code und Best Practices.  
+Die Hauptfunktionalität, Struktur und Umsetzung stammen jedoch vollständig aus eigener Arbeit.
 
 
 ## Kontakt
