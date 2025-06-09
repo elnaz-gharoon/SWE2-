@@ -69,6 +69,14 @@ nix.
 
 ## Beitragende
 
+
+## Mitwirkung
+
+Dieses Projekt wurde primär von mir Elnaz Gharoon Dastjeroy im Rahmen des Moduls Software Engineering 2 entwickelt.  
+Ich danke Ramin Armafar für die Unterstützung bei der Refaktorisierung einiger Code-Stellen im Sinne von Clean Code und Best Practices.  
+Die Hauptfunktionalität, Struktur und Umsetzung stammen jedoch vollständig aus eigener Arbeit.
+
+
 - [Elnaz Gharoon](https://github.com/elnaz-gharoon)
 
 
