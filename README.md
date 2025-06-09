@@ -69,10 +69,8 @@ nix.
 
 ## Beitragende
 
-
-## Mitwirkung
-
-Dieses Projekt wurde primär von mir Elnaz Gharoon Dastjeroy im Rahmen des Moduls Software Engineering 2 entwickelt.  
+- [Elnaz Gharoon](https://github.com/elnaz-gharoon)
+Dieses Projekt wurde primär von mir Elnaz Gharoon Dastjeroy mit Matrikelnummer [6164634] im Rahmen des Moduls Advanced Software Engineering entwickelt.  
 Ich danke Ramin Armafar für die Unterstützung bei der Refaktorisierung einiger Code-Stellen im Sinne von Clean Code und Best Practices.  
 Die Hauptfunktionalität, Struktur und Umsetzung stammen jedoch vollständig aus eigener Arbeit.
 
