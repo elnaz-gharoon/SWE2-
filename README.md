@@ -20,7 +20,7 @@ Ein Passwort-Management-System, das es Benutzern ermöglicht, Accounts zu erstel
 
 Alle notwendigen Unterlagen und Informationen finden Sie im [Wiki](https://github.com/elnaz-gharoon/SWE2-/wiki). sowie in der beigefügten docsDatei im Reposirory.
 
-
+Clone this Wiki localy : https://github.com/elnaz-gharoon/SWE2-.wiki.git
 
 ## Installation
 
