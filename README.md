@@ -5,6 +5,8 @@
 Ein Passwort-Management-System, das es Benutzern ermöglicht, Accounts zu erstellen, anzuzeigen, zu aktualisieren, zu löschen und sichere Passwörter zu generieren und zu speichern.
 
 ![ChatGPT Image 9  Juni 2025, 12_23_36](https://github.com/user-attachments/assets/c7e219c5-230f-4341-baf4-12f052016398)
+<img src="https://github.com/user-attachments/assets/c7e219c5-230f-4341-baf4-12f052016398" alt="Password Manager" width="300"/>
+
 
 
 ## Funktionen
